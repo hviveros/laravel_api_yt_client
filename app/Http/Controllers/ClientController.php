@@ -47,7 +47,10 @@ class ClientController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $url = env('URL_SERVER_API', '127.0.0.1');
+        $response = Http::get($url.'/clients/'.$id);
+        $data = $response->json();
+        return view('clienteView', compact('data'));
     }
 
     /**
@@ -61,9 +64,16 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $url = env('URL_SERVER_API', '127.0.0.1');
+        $response = Http::put($url.'/clients/'.$request->id, [
+            'name'  => $request->name,
+            'email'  => $request->email,
+            'phone'  => $request->phone,
+            'address'  => $request->address
+        ]);
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -71,6 +81,9 @@ class ClientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Hacer una petición al SERVER API para que elimine el registro
+        $url = env('URL_SERVER_API', '127.0.0.1');
+        $response = Http::delete($url.'/clients/'.$id);
+        return redirect()->route('clientes.index');
     }
 }

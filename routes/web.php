@@ -29,4 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\ClientController@index')->name('clientes.index');
 Route::get('/cliente', 'App\Http\Controllers\ClientController@create');
 Route::post('/cliente', 'App\Http\Controllers\ClientController@store')->name('cliente.store');
+Route::get('/cliente/delete/{id}', 'App\Http\Controllers\ClientController@destroy')->name('cliente.delete');
+Route::post('/cliente/update', 'App\Http\Controllers\ClientController@update')->name('cliente.update');
+Route::get('/cliente/{id}', 'App\Http\Controllers\ClientController@show')->name('cliente.view');
 
